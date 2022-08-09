@@ -1,0 +1,139 @@
+body{
+    margin : 0;
+    padding : 0;
+    font-family : sans-serif;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+}
+html {
+    min-height: -webkit-fill-available;
+}
+.card {
+  background-color: #282c34;
+  min-height: 100vh;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card .title {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.card .searchBox {
+  display: flex;
+  justify-content: center;
+  margin-top: 35px;
+}
+
+.card .searchBox input {
+  all: unset;
+  -webkit-appearance: none;
+  padding: 8px 14px;
+  color: white;
+  border: 1px solid grey;
+  border-radius: 4px;
+  margin-right: 7.5px;
+}
+
+.card .searchBox button {
+  all: unset;
+  padding: 8px 14px;
+  border: 1px solid grey;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s all;
+}
+
+.card .searchBox button:hover {
+  background-color: #5bb9df;
+  color: #212529;
+}
+
+.card .container {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.card .container .pimg {
+  border: 1px solid grey;
+  border-radius: 10px;
+  height: 250px;
+  margin-right: 15px;
+  padding: 30px 15px;
+  min-width: 290px;
+}
+
+.card .container .details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding: 25px;
+  font-size: 20px;
+  min-width: 280px;
+}
+
+.card .container .details div {
+  margin: 3px 0;
+  letter-spacing: 1px;
+}
+
+.card .container .details div i {
+  color: orangered;
+}
+
+.card .load {
+  margin-top: 25px;
+  height: 100px;
+  width: 200px;
+  margin: auto;
+}
+
+.card .ref {
+  margin-top: 25px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.card .ref a {
+  color: lightblue;
+}
+
+@media (max-width: 700px) {
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .card .title {
+    margin-top: 25px;
+    font-size: 1.5rem;
+  }
+  .card .container {
+    display: grid;
+  }
+  .card .container .pimg {
+    min-width: 240px;
+    margin-right: 0;
+    margin-bottom: 15px;
+    padding: 25px;
+  }
+  .card .container .details {
+    min-width: 240px;
+    font-size: 18px;
+  }
+  .card .ref {
+    margin-bottom: 15px;
+  }
+  .card .searchBox input {
+    padding: 5px 10px;
+  }
+  .card .searchBox button {
+    padding: 5px 10px;
+  }
+}
