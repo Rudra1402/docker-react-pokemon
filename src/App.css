@@ -137,3 +137,9 @@ html {
     padding: 5px 10px;
   }
 }
+
+.pokenotfound {
+  padding: 24px 6px 12px;
+  text-align: center;
+  font-size: 24px;
+}

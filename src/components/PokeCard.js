@@ -5,14 +5,27 @@ function PokeCard() {
 
     const [pokemon, setPokemon] = useState({})
     const [search, setSearch] = useState('pikachu')
+    const [doesPokemonExists, setDoesPokemonExists] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false)
 
     const fetchPokemon = async () => {
         await fetch(`https://pokeapi.co/api/v2/pokemon/${search}`)
-            .then(r => r.json())
+            .then(r => {
+                if (r.status == 404)
+                    return ({ message: 'Pokemon not found!', status: 404 })
+                return r.json();
+            })
             .then(p => {
-                setPokemon(p)
-                setIsLoaded(true)
+                if (p?.status == 404) {
+                    setDoesPokemonExists(false);
+                    setIsLoaded(true)
+                    return;
+                }
+                setPokemon(p);
+                setDoesPokemonExists(true);
+                setIsLoaded(true);
+            }).catch(err => {
+                console.log(err);
             })
     }
 
@@ -34,19 +47,23 @@ function PokeCard() {
                     fetchPokemon()
                 }}>Search</button>
             </div>
-            {isLoaded ? <div className='container'>
-                <img className='pimg' src={pokemon.sprites.front_default} />
-                <div className='details'>
-                    <div>Name - <i className='value'>{pokemon.name[0].toUpperCase() + pokemon.name.substring(1)}</i></div>
-                    <div>Type - <i className='value'>{pokemon.types[0].type.name[0].toUpperCase() + pokemon.types[0].type.name.substring(1)}</i></div>
-                    <div>Height - <i className='value'>{pokemon.height}</i></div>
-                    <div>Weight - <i className='value'>{pokemon.weight}</i></div>
-                    <div>Order - <i className='value'>{pokemon.order}</i></div>
-                    <div>Ability - <i className='value'>{pokemon.abilities[0].ability.name[0].toUpperCase() + pokemon.abilities[0].ability.name.substring(1)}</i></div>
-                    <div>Move - <i className='value'>{pokemon.moves[0].move.name[0].toUpperCase() + pokemon.moves[0].move.name.substring(1)}</i></div>
-                    <div>Base Experience - <i className='value'>{pokemon.base_experience}</i></div>
-                </div>
-            </div> : <img src={loader} className='load' />}
+            {isLoaded
+                ? doesPokemonExists
+                    ? <div className='container'>
+                        <img className='pimg' src={pokemon.sprites.front_default} />
+                        <div className='details'>
+                            <div>Name - <i className='value'>{pokemon.name[0].toUpperCase() + pokemon.name.substring(1)}</i></div>
+                            <div>Type - <i className='value'>{pokemon.types[0].type.name[0].toUpperCase() + pokemon.types[0].type.name.substring(1)}</i></div>
+                            <div>Height - <i className='value'>{pokemon.height}</i></div>
+                            <div>Weight - <i className='value'>{pokemon.weight}</i></div>
+                            <div>Order - <i className='value'>{pokemon.order}</i></div>
+                            <div>Ability - <i className='value'>{pokemon.abilities[0].ability.name[0].toUpperCase() + pokemon.abilities[0].ability.name.substring(1)}</i></div>
+                            <div>Move - <i className='value'>{pokemon.moves[0].move.name[0].toUpperCase() + pokemon.moves[0].move.name.substring(1)}</i></div>
+                            <div>Base Experience - <i className='value'>{pokemon.base_experience}</i></div>
+                        </div>
+                    </div>
+                    : <div className='pokenotfound'>Poekmon does not exists!</div>
+                : <img src={loader} className='load' />}
             <div className='ref'>Reference - <i><a href='https://pokeapi.co/docs/v2'>PokéAPI</a></i></div>
         </div>
     )
